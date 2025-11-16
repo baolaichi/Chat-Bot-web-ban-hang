@@ -1,0 +1,50 @@
+version: "3.1"
+nlu:
+- intent: greet  # Ý định: Chào hỏi
+  examples: |
+    - chào bot
+    - hello
+    - bot ơi
+    - có ai ở đó không
+
+- intent: goodbye # Ý định: Tạm biệt
+  examples: |
+    - tạm biệt
+    - bye
+    - cảm ơn bot
+
+- intent: ask_warranty # Ý định: Hỏi bảo hành (FAQ đơn giản)
+  examples: |
+    - chính sách bảo hành thế nào?
+    - laptop được bảo hành bao lâu?
+    - bảo hành sản phẩm
+
+- intent: ask_price # Ý định: Hỏi giá (Cần lấy Thực thể)
+  examples: |
+    - giá [iPhone 15](product_name) bao nhiêu?
+    - [Laptop Dell XPS 13](product_name) giá sao?
+    - cho tôi hỏi giá của [Samsung Galaxy S23](product_name)
+    - [iPhone 15](product_name)
+    # Bổ sung các ví dụ mới:
+    - [acer 14GB RAM](product_name) giá bao nhiêu
+    - giá [case](product_name)
+
+- intent: check_order_status # Ý định: Kiểm tra đơn hàng (Cần lấy Thực thể)
+  examples: |
+    - đơn hàng của tôi [12345](order_id) sao rồi?
+    - check đơn [ABC56](order_id)
+    - tình trạng đơn [55566](order_id) là gì?
+
+- intent: inform_need # <--- THÊM MỚI
+  examples: |
+    - tôi muốn mua laptop gaming
+    - tôi cần tìm laptop văn phòng
+    - bạn có bán case máy tính không?
+    - bạn có mẫu điện thoại nào hot không?
+
+- intent: inform_product # <--- THÊM MỚI (để trả lời câu hỏi của Bot)
+  examples: |
+    - [acer 14GB RAM](product_name)
+    - [case](product_name)
+    - tôi muốn hỏi về [iPhone 15](product_name)
+    

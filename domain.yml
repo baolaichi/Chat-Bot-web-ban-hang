@@ -1,0 +1,42 @@
+version: "3.1"
+intents:  # Liệt kê TẤT CẢ các ý định từ nlu.yml
+  - greet
+  - goodbye
+  - ask_warranty
+  - ask_price
+  - check_order_status
+  - inform_need     # <--- THÊM MỚI
+  - inform_product  # <--- THÊM MỚI
+
+entities: # Liệt kê TẤT CẢ các thực thể
+  - product_name
+  - order_id
+
+responses: # Các câu trả lời ĐƠN GIẢN (Bot tự trả lời, không cần code)
+  utter_greet:
+  - text: "Chào bạn, tôi là trợ lý ảo. Tôi có thể giúp gì cho bạn?"
+  utter_inform_need: # <--- THÊM MỚI
+  - text: "Dạ, chúng tôi có rất nhiều sản phẩm. Bạn có thể cho tôi biết tên cụ thể sản phẩm bạn quan tâm không ạ?"
+
+  utter_goodbye:
+  - text: "Tạm biệt bạn! Rất vui được hỗ trợ."
+
+  utter_ask_warranty:
+  - text: "Tất cả sản phẩm mới trên website được bảo hành chính hãng 12 tháng ạ."
+
+  utter_please_provide_product: # Câu trả lời khi không nhận diện được tên SP
+  - text: "Bạn vui lòng cho tôi biết bạn muốn hỏi giá của sản phẩm nào ạ?"
+
+  utter_please_provide_order: # Câu trả lời khi không nhận diện được mã đơn
+  - text: "Bạn vui lòng cung cấp mã đơn hàng (ví dụ: 12345) để tôi kiểm tra nhé."
+
+  utter_system_error:
+  - text: "Xin lỗi, hệ thống đang bận. Bạn vui lòng thử lại sau 1 phút."
+
+actions: # Các hành động PHỨC TẠP (Phải viết code Python, sẽ gọi Spring Boot)
+  - action_get_price
+  - action_get_order_status
+
+session_config:
+  session_expiration_time: 60  # thời gian phiên (phút)
+  carry_over_slots_to_new_session: true

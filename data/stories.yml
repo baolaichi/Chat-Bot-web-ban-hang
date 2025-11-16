@@ -1,0 +1,36 @@
+version: "3.1"
+stories:
+- story: Kịch bản chào hỏi và tạm biệt
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: Kịch bản hỏi bảo hành
+  steps:
+  - intent: ask_warranty
+  - action: utter_ask_warranty
+
+- story: Kịch bản hỏi giá (Hành động phức tạp)
+  steps:
+  - intent: ask_price  # User hỏi giá
+  - action: action_get_price # Bot phải thực hiện "hành động" để lấy giá
+
+- story: Kịch bản hỏi đơn hàng (Hành động phức tạp)
+  steps:
+  - intent: check_order_status
+  - action: action_get_order_status
+
+- story: Kịch bản hỏi chung (MỚI)
+  steps:
+  - intent: inform_need # User: "tôi muốn mua laptop gaming"
+  - action: utter_inform_need # Bot: "Dạ, chúng tôi có..."
+
+- story: Kịch bản hỏi giá - user cung cấp tên SP sau (RẤT QUAN TRỌNG)
+  steps:
+  - intent: ask_price # User: "giá bao nhiêu?" (không có entity)
+  - action: action_get_price # Bot chạy, không thấy entity
+  - action: utter_please_provide_product # Bot: "Bạn muốn hỏi giá SP nào?"
+  - intent: inform_product # User: "[acer 14GB RAM](product_name)"
+  - action: action_get_price # Bot chạy action_get_price LẦN NỮA (lần này có entity)
