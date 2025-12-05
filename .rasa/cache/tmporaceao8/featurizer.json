@@ -1,0 +1,82 @@
+{
+  "type": "MaxHistoryTrackerFeaturizer",
+  "state_featurizer": {
+    "action_texts": [],
+    "entity_tag_specs": [],
+    "feature_states": {
+      "intent": {
+        "ask_price": 0,
+        "ask_product_detail": 1,
+        "ask_tech_advice": 2,
+        "ask_warranty": 3,
+        "back": 4,
+        "check_order_status": 5,
+        "goodbye": 6,
+        "greet": 7,
+        "inform": 8,
+        "inform_need": 9,
+        "inform_product": 10,
+        "nlu_fallback": 11,
+        "out_of_scope": 12,
+        "restart": 13,
+        "search_product_by_criteria": 14,
+        "session_start": 15
+      },
+      "action_name": {
+        "action_listen": 0,
+        "action_restart": 1,
+        "action_session_start": 2,
+        "action_default_fallback": 3,
+        "action_deactivate_loop": 4,
+        "action_revert_fallback_events": 5,
+        "action_default_ask_affirmation": 6,
+        "action_default_ask_rephrase": 7,
+        "action_two_stage_fallback": 8,
+        "action_unlikely_intent": 9,
+        "action_back": 10,
+        "...": 11,
+        "action_extract_slots": 12,
+        "action_get_price": 13,
+        "action_get_order_status": 14,
+        "action_search_product": 15,
+        "action_submit_search_form": 16,
+        "action_provide_product_detail": 17,
+        "action_chat_with_llm": 18,
+        "utter_ask_brand": 19,
+        "utter_ask_category": 20,
+        "utter_ask_price_range": 21,
+        "utter_ask_warranty": 22,
+        "utter_default": 23,
+        "utter_goodbye": 24,
+        "utter_greet": 25,
+        "utter_inform_need": 26,
+        "utter_no_results": 27,
+        "utter_please_provide_order": 28,
+        "utter_please_provide_product": 29,
+        "utter_search_results": 30,
+        "utter_system_error": 31,
+        "product_search_form": 32
+      },
+      "entities": {
+        "brand": 0,
+        "category": 1,
+        "order_id": 2,
+        "price_range": 3,
+        "product_name": 4,
+        "target": 5
+      },
+      "slots": {
+        "current_product_0": 0,
+        "category_0": 1,
+        "brand_0": 2,
+        "price_range_0": 3,
+        "target_0": 4
+      },
+      "active_loop": {
+        "product_search_form": 0
+      }
+    }
+  },
+  "remove_duplicates": true,
+  "max_history": 5
+}

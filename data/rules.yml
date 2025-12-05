@@ -2,9 +2,48 @@ version: "3.1"
 
 rules:
 
-- rule: Say goodbye anytime the user says goodbye
-  steps:
-  - intent: goodbye
-  - action: utter_goodbye
+  # --- Rule 1: Các câu chào hỏi cơ bản (Luôn trả lời cố định) ---
+  - rule: Say hello
+    steps:
+      - intent: greet
+      - action: utter_greet
 
+  - rule: Say goodbye
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
 
+  - rule: Ask warranty
+    steps:
+      - intent: ask_warranty
+      - action: utter_ask_warranty
+
+  # --- Rule 2: Kích hoạt Form Tìm kiếm ---
+  - rule: Kích hoạt tìm kiếm sản phẩm
+    steps:
+      - intent: search_product_by_criteria
+      - action: product_search_form
+      - active_loop: product_search_form
+
+  # --- Rule 3: Gửi Form khi đã đủ thông tin ---
+  - rule: Gửi form khi đã đủ thông tin
+    condition:
+      - active_loop: product_search_form
+    steps:
+      - action: product_search_form
+      - active_loop: null
+      - slot_was_set:
+          - requested_slot: null
+      - action: action_submit_search_form
+
+  # --- Rule 4: Tư vấn kỹ thuật (Gọi LLM/Gemini chủ động) ---
+  - rule: Tư vấn kỹ thuật
+    steps:
+      - intent: ask_tech_advice
+      - action: action_chat_with_llm
+
+  # --- Rule 5: Fallback (Khi bot không hiểu -> Gọi LLM/Gemini) ---
+  - rule: Fallback to LLM
+    steps:
+      - intent: nlu_fallback
+      - action: action_chat_with_llm

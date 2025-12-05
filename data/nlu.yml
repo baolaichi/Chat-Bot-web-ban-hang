@@ -47,4 +47,35 @@ nlu:
     - [acer 14GB RAM](product_name)
     - [case](product_name)
     - tôi muốn hỏi về [iPhone 15](product_name)
-    
+
+# ... (các intent cũ)
+
+- intent: ask_tech_advice # Dạy bot nhận diện câu hỏi khó
+  examples: |
+    - i3 và i7 cái nào hơn?
+    - so sánh chip intel và ryzen
+    - máy tính bị nóng phải làm sao
+    - sinh viên kiến trúc nên mua máy gì
+    - tư vấn laptop cho lập trình viên
+    - tại sao máy macbook lại đắt
+    - ram 8gb có đủ dùng không
+    - nên mua dell hay asus
+    - giải thích về card màn hình rời
+
+
+
+
+
+rules:
+
+  - rule: Tư vấn kỹ thuật (Gọi DeepSeek)
+    steps:
+      - intent: ask_tech_advice
+      - action: action_chat_with_llm
+
+  - rule: Fallback (Gọi DeepSeek khi không hiểu)
+    steps:
+      - intent: nlu_fallback
+      - action: action_chat_with_llm
+
+

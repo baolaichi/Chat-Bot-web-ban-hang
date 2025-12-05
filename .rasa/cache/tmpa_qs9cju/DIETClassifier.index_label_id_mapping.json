@@ -1,0 +1,10 @@
+{
+  "0": "ask_price",
+  "1": "ask_tech_advice",
+  "2": "ask_warranty",
+  "3": "check_order_status",
+  "4": "goodbye",
+  "5": "greet",
+  "6": "inform_need",
+  "7": "inform_product"
+}

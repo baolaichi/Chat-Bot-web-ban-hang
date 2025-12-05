@@ -1,22 +1,67 @@
 version: "3.1"
-intents:  # Liệt kê TẤT CẢ các ý định từ nlu.yml
+
+intents:
   - greet
   - goodbye
   - ask_warranty
   - ask_price
   - check_order_status
-  - inform_need     # <--- THÊM MỚI
-  - inform_product  # <--- THÊM MỚI
+  - search_product_by_criteria
+  - inform_need
+  - inform_product
+  - inform
+  - ask_product_detail
+  - ask_tech_advice            # <--- THÊM MỚI: Hỏi tư vấn kỹ thuật (để gọi DeepSeek)
 
-entities: # Liệt kê TẤT CẢ các thực thể
+entities:
   - product_name
   - order_id
+  - category
+  - brand
+  - target
+  - price_range
 
-responses: # Các câu trả lời ĐƠN GIẢN (Bot tự trả lời, không cần code)
+slots:
+  current_product:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: product_name
+
+  category:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: category
+
+  brand:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: brand
+
+  price_range:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: price_range
+
+  target:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: target
+
+forms:
+  product_search_form:
+    required_slots:
+      - category
+      - brand
+      - price_range
+
+responses:
   utter_greet:
-  - text: "Chào bạn, tôi là trợ lý ảo. Tôi có thể giúp gì cho bạn?"
-  utter_inform_need: # <--- THÊM MỚI
-  - text: "Dạ, chúng tôi có rất nhiều sản phẩm. Bạn có thể cho tôi biết tên cụ thể sản phẩm bạn quan tâm không ạ?"
+  - text: "Chào bạn, tôi là trợ lý ảo LaptopShop. Tôi có thể giúp gì cho bạn?"
 
   utter_goodbye:
   - text: "Tạm biệt bạn! Rất vui được hỗ trợ."
@@ -24,19 +69,44 @@ responses: # Các câu trả lời ĐƠN GIẢN (Bot tự trả lời, không c�
   utter_ask_warranty:
   - text: "Tất cả sản phẩm mới trên website được bảo hành chính hãng 12 tháng ạ."
 
-  utter_please_provide_product: # Câu trả lời khi không nhận diện được tên SP
+  utter_inform_need:
+  - text: "Dạ, chúng tôi có rất nhiều sản phẩm. Bạn có thể cho tôi biết tên cụ thể sản phẩm bạn quan tâm không ạ?"
+
+  utter_please_provide_product:
   - text: "Bạn vui lòng cho tôi biết bạn muốn hỏi giá của sản phẩm nào ạ?"
 
-  utter_please_provide_order: # Câu trả lời khi không nhận diện được mã đơn
+  utter_please_provide_order:
   - text: "Bạn vui lòng cung cấp mã đơn hàng (ví dụ: 12345) để tôi kiểm tra nhé."
 
-  utter_system_error:
-  - text: "Xin lỗi, hệ thống đang bận. Bạn vui lòng thử lại sau 1 phút."
+  utter_ask_category:
+  - text: "Bạn cần tìm loại sản phẩm nào? (Laptop, PC, Phụ kiện...)"
 
-actions: # Các hành động PHỨC TẠP (Phải viết code Python, sẽ gọi Spring Boot)
+  utter_ask_brand:
+  - text: "Bạn thích thương hiệu nào? (Dell, Asus, MacBook...)"
+
+  utter_ask_price_range:
+  - text: "Bạn dự kiến ngân sách khoảng bao nhiêu?"
+
+  utter_search_results:
+  - text: "Dưới đây là các sản phẩm phù hợp với yêu cầu của bạn:\n{search_results}"
+
+  utter_no_results:
+  - text: "Xin lỗi, tôi không tìm thấy sản phẩm nào phù hợp với tiêu chí này."
+
+  utter_system_error:
+  - text: "Xin lỗi, hệ thống đang bận hoặc gặp sự cố kết nối. Bạn vui lòng thử lại sau 1 phút nhé."
+
+  utter_default:
+  - text: "Xin lỗi, tôi chưa hiểu ý bạn. Bạn có thể diễn đạt lại không?"
+
+actions:
   - action_get_price
   - action_get_order_status
+  - action_search_product
+  - action_submit_search_form
+  - action_provide_product_detail
+  - action_chat_with_llm        # Action gọi DeepSeek
 
 session_config:
-  session_expiration_time: 60  # thời gian phiên (phút)
+  session_expiration_time: 60
   carry_over_slots_to_new_session: true
